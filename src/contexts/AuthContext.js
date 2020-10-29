@@ -31,12 +31,17 @@ export function AuthProvider({ children }) {
     return currentUser.updateEmail(email)
   }
 
+  function updateDisplayName(name) {
+    return currentUser.updateProfile({displayName: name})
+  }
+
   function updatePassword(password) {
     return currentUser.updatePassword(password)
   }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
+      
       setCurrentUser(user)
       setLoading(false)
     })
@@ -46,6 +51,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    updateDisplayName,
     login,
     signup,
     logout,
