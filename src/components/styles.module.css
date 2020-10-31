@@ -1,0 +1,42 @@
+.mainContainer {
+  padding-top: 50px;
+}
+.cardContainer {
+  margin-top: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card {
+  background-color: "#00b894";
+  transition: all 0.3s;
+  border: none;
+  height: 110px;
+  margin:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 3px 4px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.cardBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottomBar{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 100px;
+}
+.loginCard {
+  margin:auto;
+  max-width: 480px !important;
+}
