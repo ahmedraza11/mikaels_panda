@@ -10,29 +10,34 @@ import styles from "./styles.module.css";
 const items = [
   {
     title: "Chai | Tea",
-    type: "tea",
+    type: "Tea",
     backgroundColor: "#00cec9",
   },
   {
     title: "Coffee",
-    type: "coffee",
+    type: "Coffee",
     backgroundColor: "#ff7675",
   },
   {
     title: "Black Coffee",
-    type: "black_coffee",
+    type: "Black Coffee",
     backgroundColor: "#00b894",
   },
   {
     title: "Green tea",
-    type: "green_tea",
+    type: "Green Tea",
     backgroundColor: "#a29bfe",
   },
   {
     title: "Come to me",
-    type: "come",
+    type: "Come to me",
     backgroundColor: "#e17055",
   },
+  {
+    title: "Custom Order",
+    type: "Custom Order",
+    backgroundColor: "#636e72",
+  }
 ];
 
 export default function Dashboard() {
@@ -61,20 +66,20 @@ export default function Dashboard() {
             data.push(val.data())
           });
           if (verified) {
-            if(data.length < 10) {
+            if (data.length < 10) {
               db.collection("orders")
-              .add({
-                type: type,
-                createdAt: new Date(),
-                order_by: uid,
-                status: "pending",
-              })
-              .then(() => {
-                swal("Order Successfully created!", "", "success");
-              }).catch(err => {
-                alert("Error Error!", err);
-              })
-            }else {
+                .add({
+                  type: type,
+                  createdAt: new Date(),
+                  order_by: uid,
+                  status: "pending",
+                })
+                .then(() => {
+                  swal("Order Successfully created!", "", "success");
+                }).catch(err => {
+                  alert("Error Error!", err);
+                })
+            } else {
               swal("Order Limit Exeption ♨️", "Your orders are > than 3, await till your orders resolved 🤪");
             }
           } else {
