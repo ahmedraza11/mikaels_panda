@@ -8,7 +8,7 @@ export default function UpdateProfile() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { currentUser, updatePassword, updateEmail,updateDisplayName } = useAuth()
+  const { userObject, updatePassword, updateEmail,updateDisplayName } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -23,7 +23,7 @@ export default function UpdateProfile() {
     setLoading(true)
     setError("")
 
-    if (emailRef.current.value !== currentUser.email) {
+    if (emailRef.current.value !== userObject.email) {
       promises.push(updateEmail(emailRef.current.value))
     }
     if (passwordRef.current.value) {
@@ -48,7 +48,7 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <Card>
+      <Card style={{ maxWidth: "400px",margin:"auto" }}>
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -59,7 +59,7 @@ export default function UpdateProfile() {
                 type="text"
                 ref={displayNameRef}
                 required
-                defaultValue={currentUser.displayName}
+                defaultValue={userObject.displayName}
               />
             </Form.Group>
             <Form.Group id="email">
@@ -68,7 +68,7 @@ export default function UpdateProfile() {
                 type="email"
                 ref={emailRef}
                 required
-                defaultValue={currentUser.email}
+                defaultValue={userObject.email}
               />
             </Form.Group>
             <Form.Group id="password">
@@ -87,14 +87,14 @@ export default function UpdateProfile() {
                 placeholder="Leave blank to keep the same"
               />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button style={{ background: "#4f4f4f", border: "none" }} disabled={loading} className="w-100" type="submit">
               Update
             </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        <Link to="/">Cancel</Link>
+        <Link style={{ color: "#4f4f4f", cursor: "pointer", textDecoration: "none" }} to="/">Cancel</Link>
       </div>
     </>
   )

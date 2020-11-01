@@ -33,11 +33,11 @@ const items = [
     type: "Come to me",
     backgroundColor: "#e17055",
   },
-  {
-    title: "Custom Order",
-    type: "Custom Order",
-    backgroundColor: "#636e72",
-  }
+  // {
+  //   title: "Custom Order",
+  //   type: "Custom Order",
+  //   backgroundColor: "#636e72",
+  // }
 ];
 
 export default function Dashboard() {
@@ -57,38 +57,43 @@ export default function Dashboard() {
 
   const createOrder = async (type, uid) => {
     setError("");
-    try {
-      db.collection("users").doc(uid).get().then(doc => {
-        const { verified } = doc.data();
-        db.collection("orders").where("order_by", "==", uid).where("status", "==", "pending").get().then(docs => {
-          let data = [];
-          docs.forEach(val => {
-            data.push(val.data())
-          });
-          if (verified) {
-            if (data.length < 10) {
-              db.collection("orders")
-                .add({
-                  type: type,
-                  createdAt: new Date(),
-                  order_by: uid,
-                  status: "pending",
-                })
-                .then(() => {
-                  swal("Order Successfully created!", "", "success");
-                }).catch(err => {
-                  alert("Error Error!", err);
-                })
+    if (userObject.displayName) {
+      try {
+        db.collection("users").doc(uid).get().then(doc => {
+          const { verified } = doc.data();
+          db.collection("orders").where("order_by", "==", uid).where("status", "==", "pending").get().then(docs => {
+            let data = [];
+            docs.forEach(val => {
+              data.push(val.data())
+            });
+            if (verified) {
+              if (data.length < 10) {
+                db.collection("orders")
+                  .add({
+                    type: type,
+                    createdAt: new Date(),
+                    order_by: uid,
+                    username: userObject.displayName,
+                    status: "pending",
+                  })
+                  .then(() => {
+                    swal("Order Successfully created!", "", "success");
+                  }).catch(err => {
+                    alert("Error Error!", err);
+                  })
+              } else {
+                swal("Order Limit Exeption ♨️", "Your orders are > than 3, await till your orders resolved 🤪");
+              }
             } else {
-              swal("Order Limit Exeption ♨️", "Your orders are > than 3, await till your orders resolved 🤪");
+              swal("Sorry! You are not verified user!", "Kindly contact your admin for being verified", "error");
             }
-          } else {
-            swal("Sorry! You are not verified user!", "Kindly contact your admin for being verified", "error");
-          }
+          })
         })
-      })
-    } catch {
-      setError("Failed to log out");
+      } catch {
+        setError("Failed to log out");
+      }
+    } else {
+      swal("For what name should I know you? 🤔", "Kindly update you profile name", "error");
     }
 
   };
@@ -114,19 +119,17 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
-        <div className={styles.bottomBar}>
-          <Link to="/update-profile" className="btn btn-primary mr-3">
-            Update Profile
-          </Link>
-          <div className="text-center">
-            <Button
-              style={{ background: "#ff7675", border: "none" }}
-              onClick={handleLogout}
-            >
+        <footer className={styles.footer}>
+          <h5>Mikaels Panda</h5>
+          <div className={styles.bottomBar}>
+            <Link className={styles.footer_btn} to="/update-profile">
+              Update Profile
+              </Link>
+            <span className={styles.footer_btn} onClick={handleLogout}>
               Log Out
-            </Button>
+            </span>
           </div>
-        </div>
+        </footer>
       </Container>
     </>
   );

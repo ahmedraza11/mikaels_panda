@@ -33,19 +33,38 @@ export default () => {
 	}, [])
 
 	return (
-		<Container className={styles.orderListContainer}>
-			{(!loading & orderList.length < 1)
+		<>
+			<header className={styles.workerPanelHeader}>
+				<h4>Mikaels Panda</h4>
+			</header>
+			<Container>
+				<div className={styles.orderRowsContainer}>
+					<OrderRow loading={loading} orderList={orderList || []} status="pending" title="New" />
+					<OrderRow loading={loading} orderList={orderList || []} status="preparing" title="Pending" />
+					<OrderRow loading={loading} orderList={orderList || []} status="completed" title="Completed" />
+				</div>
+			</Container>
+		</>
+	)
+}
+
+const OrderRow = ({ loading, orderList, status, title }) => {
+	let filteredList = orderList.filter(val => val.status === status)
+	return (
+		<div className={styles.orderListContainer}>
+			<h5>{title} Orders</h5>
+			{(!loading & filteredList.length < 1)
 				? <p className={styles.no_orderMsg}><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/male-cook_1f468-200d-1f373.png" width="30px" /> No order's yet 😄</p>
 				: loading ? <p>Loading orders ...</p>
-					: orderList.map(val => (
+					: filteredList.map(val => (
 						<div>
 							<Card className={styles.order_card}>
-								<span className={styles.client_name}>Ahmed Raza Qadri</span>
+								<span className={styles.client_name}>{val?.username}</span>
 								<span className={styles.order_time}>{moment(Date(val.createdAt)).startOf('hour').fromNow()}</span>
 								<p>{val.type}</p>
 							</Card>
 						</div>
 					))}
-		</Container>
+		</div>
 	)
 }

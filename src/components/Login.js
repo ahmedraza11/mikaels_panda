@@ -8,14 +8,13 @@ import styles from "./styles.module.css";
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login,currentUser } = useAuth();
+  const { login, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
       setError("");
       setLoading(true);
@@ -43,17 +42,17 @@ export default function Login() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button style={{ background: "#4f4f4f", border: "none" }} disabled={loading} className="w-100" type="submit">
               Log In
             </Button>
           </Form>
           <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
+            <Link style={{ color: "#4f4f4f", cursor: "pointer", textDecoration: "none" }} to="/forgot-password">Forgot Password?</Link>
           </div>
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
+        Need an account? <Link className={styles.link} to="/signup">Sign Up</Link>
       </div>
     </div>
   );
