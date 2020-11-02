@@ -1,14 +1,15 @@
 import React from "react"
-import Signup from "./Signup"
 import { Container } from "react-bootstrap"
-import { AuthProvider } from "../contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Dashboard from "./Dashboard"
-import WorkerPanel from "./workerPanel"
-import Login from "./Login"
-import PrivateRoute from "./PrivateRoute"
-import ForgotPassword from "./ForgotPassword"
+
+
+import { AuthProvider,useAuth } from "../contexts/AuthContext"
 import UpdateProfile from "./UpdateProfile"
+import PrivateRoute from "./PrivateRoute"
+import WorkerPanel from "./workerPanel"
+import Dashboard from "./Dashboard"
+import Signup from "./Signup"
+import Login from "./Login"
 
 function App() {
   return (
@@ -22,10 +23,8 @@ function App() {
             <Switch>
               <PrivateRoute exact path="/" component={Dashboard} />
               <PrivateRoute path="/update-profile" component={UpdateProfile} />
-              <PrivateRoute path="/workerPanel" component={WorkerPanel} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
             </Switch>
           </AuthProvider>
         </Router>

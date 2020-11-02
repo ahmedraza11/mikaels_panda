@@ -17,6 +17,9 @@ export default function Signup() {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
     }
+    if(emailRef.current.value.split("@")[1] !== "mikaels.com"){
+      return setError("Only Mikaels folks are welcome: 😊")
+    }
 
     try {
       setError("")

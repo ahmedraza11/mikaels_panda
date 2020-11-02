@@ -95,6 +95,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     userObject,
+    loading,
     updateDisplayName,
     login,
     signup,

@@ -34,6 +34,11 @@
   align-items: center;
 }
 
+.h3Styles {
+  margin-right: 23px;
+  margin-top: 5px;
+}
+
 .footer {
   border-top: 0.5px solid #4f4f4f;
   display: flex;
@@ -113,8 +118,9 @@
 
 .orderListContainer {
   padding-top: 40px;
-  max-width: 200px;
+  max-width: 300px;
 }
+
 .orderListContainer h5{
   margin-bottom: 25px;
   padding-bottom: 5px;
@@ -123,6 +129,10 @@
 
 .workerPanelHeader {
   border-bottom: solid 1px #4f4f4f;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 13px;
+
 }
 
 .orderRowsContainer {
@@ -140,4 +150,101 @@
   text-decoration: none !important;
   cursor: pointer !important;
   color: #4f4f4f !important;
+}
+
+.orderRow_btnContainer {
+  margin-left: 15px;
+}
+
+.orderRow_btnContainer>button {
+  margin-bottom: 15px;
+}
+
+.orderRowBtn {
+  background: #4f4f4f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  width: 85px;
+}
+
+.appOnlineStatusBtn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #4f4f4f;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.appOffileStatusBtn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #ff7675;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.appOnlineStatusBtn div{
+  width: 12px;
+  height: 12px;
+  background: #55efc4;
+  border-radius: 50px;
+  margin-left: 15px;
+}
+.appOffileStatusBtn div{
+  width: 12px;
+  height: 12px;
+  background: #b2bec3;
+  border-radius: 50px;
+  margin-left: 15px;
+}
+
+.workerPanelHeaderBtnContainer {
+  display: flex;
+}
+.workerPanelHeaderBtnContainerLogoutBtn{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #e17055;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.onlineCircle {
+  width: 12px;
+  height: 12px;
+  background: #00b894;
+  border-radius: 50px;
+  margin-left: 8px;
+}
+
+.offlineCircle {
+  width: 12px;
+  height: 12px;
+  background: #ff7675;
+  border-radius: 50px;
+  margin-left: 8px;
+}
+
+.portalStatusText {
+  display: flex;
+    align-items: center;
+}
+
+.orderListInnerContainer {
+  max-height: 582px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 15px;
 }
