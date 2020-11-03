@@ -1,62 +1,72 @@
-import React, { useContext, useState, useEffect } from "react"
-import { auth, db } from "../firebase"
+import React, { useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebase";
 
-const AuthContext = React.createContext()
+export const AuthContext = React.createContext();
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
-  const [userObject, setUserObject] = useState()
-  const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState();
+  const [userObject, setUserObject] = useState();
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+    return auth.createUserWithEmailAndPassword(email, password);
   }
 
   async function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
   function logout() {
-    return auth.signOut()
+    return auth.signOut();
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return auth.sendPasswordResetEmail(email);
   }
 
   function updateEmail(email) {
-    return userObject.updateEmail(email)
+    return userObject.updateEmail(email);
   }
 
   async function updateDisplayName(name) {
-    await userObject.updateProfile({ displayName: name })
-    await db.collection("users").doc(userObject.uid).update({ displayName: name })
+    await userObject.updateProfile({ displayName: name });
+    await db
+      .collection("users")
+      .doc(userObject.uid)
+      .update({ displayName: name });
   }
 
   function updatePassword(password) {
-    return userObject.updatePassword(password)
+    return userObject.updatePassword(password);
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    let unSubUserSnap;
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUserObject(user);
       if (user) {
-        db.collection("users").where("user_id", "==", user.uid).get().then(res => {
-          res.forEach(val => {
-            setCurrentUser(val.data());
-            setLoading(false)
-          })
-        })
+        unSubUserSnap = db
+          .collection("users")
+          .where("user_id", "==", user.uid)
+          .onSnapshot((snap) =>
+            snap.forEach((val) => {
+              setCurrentUser(val.data());
+              setLoading(false);
+            })
+          );
       }
-      setLoading(false)
-    })
+      setLoading(false);
+    });
 
-    return unsubscribe
-  }, [])
+    return () => {
+      unsubscribe();
+      unSubUserSnap();
+    };
+  }, []);
 
   const generateUserDocument = async (user) => {
     if (!user) return;
@@ -71,7 +81,7 @@ export function AuthProvider({ children }) {
           photoURL,
           verified: false,
           role: "employee",
-          user_id: uid
+          user_id: uid,
         });
       } catch (error) {
         console.error("Error creating user document", error);
@@ -79,13 +89,13 @@ export function AuthProvider({ children }) {
     }
     return getUserDocument(user.uid);
   };
-  const getUserDocument = async uid => {
+  const getUserDocument = async (uid) => {
     if (!uid) return null;
     try {
       const userDocument = await db.doc(`users/${uid}`).get();
       return {
         uid,
-        ...userDocument.data()
+        ...userDocument.data(),
       };
     } catch (error) {
       console.error("Error fetching user", error);
@@ -103,13 +113,12 @@ export function AuthProvider({ children }) {
     resetPassword,
     updateEmail,
     updatePassword,
-    generateUserDocument
-  }
+    generateUserDocument,
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
-
+  );
 }

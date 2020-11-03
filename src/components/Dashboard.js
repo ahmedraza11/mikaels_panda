@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, Button, Alert, Container, Spinner } from "react-bootstrap";
 import swal from "sweetalert";
 
 import { db } from "./../firebase";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth,AuthContext } from "../contexts/AuthContext";
 import WorkerPanel from "./workerPanel";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
@@ -225,11 +225,31 @@ const CardItem = ({ val, createOrder, userObject, clickedItem }) => {
 };
 
 export default () => {
-  const { currentUser,loading  } = useAuth();
+  const { currentUser, loading } = useAuth();
+  const AuthState = useContext(AuthContext);
+  console.log("AuthState============",AuthState)
   console.log("currentUsercurrentUser", currentUser);
-  return currentUser?.role !== "employee" ? (
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    console.log("effect", loading);
+    if (currentUser) {
+      console.log("currrentUserrrrr", currentUser, loading);
+      setLoader(false);
+    }
+  }, [currentUser,AuthState]);
+
+  useEffect(() => {
+    console.log("loadingffffff", loading, currentUser);
+  }, [loading]);
+
+  if (loader) {
+    return <h1>Loaderrrrrrrr</h1>;
+  }
+
+  return currentUser?.role == "employee" ? (
+    <EmployeeDashboard />
+  ) : (
     <WorkerPanel />
-    ) : (
-      <EmployeeDashboard />
   );
 };
