@@ -1,38 +1,38 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Card, Button, Alert, Container, Spinner } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
-import { db } from "./../firebase";
-import { useAuth,AuthContext } from "../contexts/AuthContext";
+import { db,auth } from "./../firebase";
+import { useAuth, AuthContext } from "../contexts/AuthContext";
 import WorkerPanel from "./workerPanel";
-import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 
 const items = [
   {
     title: "Chai | Tea",
     type: "Tea",
-    backgroundColor: "#00cec9",
+    backgroundColor: "#fd7e14",
   },
   {
     title: "Coffee",
     type: "Coffee",
-    backgroundColor: "#ff7675",
+    backgroundColor: "#17a2b8",
   },
   {
     title: "Black Coffee",
     type: "Black Coffee",
-    backgroundColor: "#00b894",
+    backgroundColor: "#dc3545",
   },
   {
     title: "Green tea",
     type: "Green Tea",
-    backgroundColor: "#a29bfe",
+    backgroundColor: "#009688",
   },
   {
     title: "Come to me",
     type: "Come to me",
-    backgroundColor: "#e17055",
+    backgroundColor: "#607d8b",
   },
 ];
 
@@ -136,8 +136,22 @@ const EmployeeDashboard = () => {
   };
 
   return (
-    <>
-      <Container>
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        background: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <img
+        src={`${window.location.origin}/images/logo-black-svg.png`}
+        style={{ width: "250px", marginBottom: "50px" }}
+      />
+      <Container style={{ background: "black", color: "#fff" }}>
         <div className={styles.mainContainer}>
           <p className={styles.portalStatusText}>
             Portal is {appStatus}{" "}
@@ -190,7 +204,10 @@ const EmployeeDashboard = () => {
           </div>
         </div>
         <footer className={styles.footer}>
-          <h5>Mikaels Panda</h5>
+          <img
+            src={`${window.location.origin}/images/logo-black-svg.png`}
+            style={{ width: "163px", height: "19px" }}
+          />
           <div className={styles.bottomBar}>
             <Link className={styles.footer_btn} to="/update-profile">
               Update Profile
@@ -201,7 +218,7 @@ const EmployeeDashboard = () => {
           </div>
         </footer>
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -225,31 +242,67 @@ const CardItem = ({ val, createOrder, userObject, clickedItem }) => {
 };
 
 export default () => {
-  const { currentUser, loading } = useAuth();
-  const AuthState = useContext(AuthContext);
-  console.log("AuthState============",AuthState)
-  console.log("currentUsercurrentUser", currentUser);
+  // const { currentUser, loading } = useAuth();
+  // const AuthState = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState();
+  const [userObject, setUserObject] = useState();
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    console.log("effect", loading);
-    if (currentUser) {
-      console.log("currrentUserrrrr", currentUser, loading);
+    let unSubUserSnap;
+    setLoader(true);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUserObject(user);
+      if (user) {
+        unSubUserSnap = db
+          .collection("users")
+          .where("user_id", "==", user.uid)
+          .onSnapshot((snap) =>
+            snap.forEach((val) => {
+              setCurrentUser(val.data());
+              setLoader(false);
+            })
+          );
+      }
       setLoader(false);
-    }
-  }, [currentUser,AuthState]);
+    });
 
-  useEffect(() => {
-    console.log("loadingffffff", loading, currentUser);
-  }, [loading]);
+    return () => {
+      unsubscribe();
+      unSubUserSnap();
+    };
+  }, []);
 
-  if (loader) {
-    return <h1>Loaderrrrrrrr</h1>;
+  // useEffect(() => {
+  //   console.log("effect", loading);
+  //   if (currentUser) {
+  //     console.log("currrentUserrrrr", currentUser, loading);
+  //     setLoader(false);
+  //   }
+  // }, [currentUser, AuthState]);
+
+  // useEffect(() => {
+  //   console.log("loadingffffff", loading, currentUser);
+  // }, [loading]);
+
+  if (loader || !currentUser) {
+    return (
+      <div className={styles.loaderContainer}>
+        <div className={styles.loaderInnerContainer}>
+          <div className={styles.overlay_container}>
+            <img
+              src={`${window.location.origin}/images/logo-black-svg.png`}
+              style={{ width: "300px", marginBottom: "50px" }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    return currentUser?.role == "employee" ? (
+      <EmployeeDashboard />
+    ) : (
+      <WorkerPanel />
+    );
   }
-
-  return currentUser?.role == "employee" ? (
-    <EmployeeDashboard />
-  ) : (
-    <WorkerPanel />
-  );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card, Button, Alert, Container } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
@@ -17,14 +17,13 @@ export default () => {
   const history = useHistory();
 
   const play = () => {
-    if(audioRef.current){
-      
+    if (audioRef.current) {
       audioRef.current.play();
     }
     // document.getElementById("audio").play();
-  }
+  };
 
-  console.log("orderListorderList",orderList)
+  console.log("orderListorderList", orderList);
   const getAllOrders = () => {
     return db
       .collection("orders")
@@ -40,14 +39,12 @@ export default () => {
       });
   };
 
- 
-
   const getAppStatus = () => {
     return db
       .collection("app")
       .doc("mikaels_panda")
       .onSnapshot(function (doc) {
-        setAppStatus(doc.data().status);
+        setAppStatus(doc.data()?.status);
       });
   };
 
@@ -74,62 +71,67 @@ export default () => {
     getAllOrders();
     return () => {
       getAppStatus();
-      getAllOrders();  
-    }
+      getAllOrders();
+    };
   }, []);
-
+  
   return (
-    <>
-      <header className={styles.workerPanelHeader}>
-        <h4>Mikaels Panda</h4>
-        <div className={styles.workerPanelHeaderBtnContainer}>
-          <button
-            className={styles.workerPanelHeaderBtnContainerLogoutBtn}
-            onClick={handleLogout}
-          >
-            Log Out
-          </button>
-          <button
-            onClick={handleAppStatus}
-            className={
-              appStatus == "Online"
-                ? styles.appOnlineStatusBtn
-                : styles.appOffileStatusBtn
-            }
-          >
-            {appStatus} <div></div>
-          </button>
-        </div>
-      </header>
-      <audio ref={audioRef}>
-        <source
-          src="https://res.cloudinary.com/duhaflump/video/upload/v1604329046/simple_message.mp3"
-          type="audio/mpeg"
-        />
-      </audio>
+    <div style={{marginTop:"50px"}}> 
       <Container>
-        <div className={styles.orderRowsContainer}>
-          <OrderRow
-            loading={loading}
-            orderList={orderList || []}
-            status="pending"
-            title="New"
+        <header className={styles.workerPanelHeader}>
+        <img
+          src={`${window.location.origin}/images/logo-black-svg (1).png`}
+          style={{ width: "163px", height:"19px" }}
+        />
+          <div className={styles.workerPanelHeaderBtnContainer}>
+            <button
+              className={styles.workerPanelHeaderBtnContainerLogoutBtn}
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
+            <button
+              onClick={handleAppStatus}
+              className={
+                appStatus == "Online"
+                  ? styles.appOnlineStatusBtn
+                  : styles.appOffileStatusBtn
+              }
+            >
+              {appStatus} <div></div>
+            </button>
+          </div>
+        </header>
+        <audio ref={audioRef}>
+          <source
+            src="https://res.cloudinary.com/duhaflump/video/upload/v1604329046/simple_message.mp3"
+            type="audio/mpeg"
           />
-          <OrderRow
-            loading={loading}
-            orderList={orderList || []}
-            status="preparing"
-            title="Preparing"
-          />
-          <OrderRow
-            loading={loading}
-            orderList={orderList || []}
-            status="completed"
-            title="Completed"
-          />
-        </div>
+        </audio>
+        <Container>
+          <div className={styles.orderRowsContainer}>
+            <OrderRow
+              loading={loading}
+              orderList={orderList || []}
+              status="pending"
+              title="New"
+            />
+            <OrderRow
+              loading={loading}
+              orderList={orderList || []}
+              status="preparing"
+              title="Preparing"
+            />
+            <OrderRow
+              loading={loading}
+              orderList={orderList || []}
+              status="completed"
+              title="Completed"
+            />
+          </div>
+        </Container>
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -156,7 +158,7 @@ const OrderRow = ({ loading, orderList, status, title }) => {
                 src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/male-cook_1f468-200d-1f373.png"
                 width="30px"
               />{" "}
-              No order's yet 😄:hellow
+              No order's yet 😄
             </p>
           ) : (
             <p className={styles.no_orderMsg}>No {title} Orders.</p>
