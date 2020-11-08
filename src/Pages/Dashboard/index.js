@@ -201,7 +201,7 @@ export const Dashboard = () => {
   if (loader || !currentUser) {
     return <LoaderScreen />;
   } else {
-    return currentUser?.role == "employees" ? (
+    return currentUser?.role == "employee" ? (
       <EmployeeDashboard />
     ) : (
       <WorkerPanel />
