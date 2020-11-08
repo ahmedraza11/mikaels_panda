@@ -1,23 +1,17 @@
-import React from "react"
-import { Container } from "react-bootstrap"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { Login, Signup, UpdateProfile, Dashboard } from "./../index";
+import { AuthProvider } from "../../Contexts/AuthContext";
+import { PrivateRoute } from "./../../Components";
 
-import { AuthProvider,useAuth } from "../contexts/AuthContext"
-import UpdateProfile from "./UpdateProfile"
-import PrivateRoute from "./PrivateRoute"
-import WorkerPanel from "./workerPanel"
-import Dashboard from "./Dashboard"
-import Signup from "./Signup"
-import Login from "./Login"
-
-function App() {
+const App = () => {
   return (
     <div
       className="d-flex align-items-center justify-content-center"
       style={{ minHeight: "100vh" }}
     >
-      <div className="w-100" style={{height:"100vh"}} >
+      <div className="w-100" style={{ height: "100vh" }}>
         <Router>
           <AuthProvider>
             <Switch>
@@ -30,7 +24,7 @@ function App() {
         </Router>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
