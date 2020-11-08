@@ -53,6 +53,14 @@
         justify-content: center;
         align-items: center;
         width: 18rem;
+        .cardBody {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          h3 {
+            margin-right: 8px;
+          }
+        }
       }
 
       .card:hover {
@@ -91,6 +99,7 @@
 
 @media screen and (max-width: 767px) {
   .dashboard_container {
+    height: 100%;
     .dashboard_inner_container {
       h3 {
         font-size: 1.5rem;

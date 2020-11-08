@@ -30,7 +30,9 @@ export const CardItem = ({
     <Card
       style={{ backgroundColor: val.backgroundColor }}
       className={styles.card}
-      onClick={() => createOrder(val.type, userObject.uid)}
+      onClick={() =>
+        !(val.type === clickedItem) && createOrder(val.type, userObject.uid)
+      }
     >
       <div className={styles.cardBody}>
         <h3 className={`${val.type === clickedItem && styles.h3Styles}`}>
