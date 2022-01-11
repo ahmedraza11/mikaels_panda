@@ -1,14 +1,19 @@
 .workPanel_container {
   margin-bottom: 50px;
-  header {
-    border-bottom: solid 1px #4f4f4f;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  footer {
+    border-top: solid 1px #4f4f4f;
     display: flex;
     margin-top: 50px;
     justify-content: space-between;
+    padding-top: 13px;
     padding-bottom: 13px;
     img {
       width: 163px;
-      height: 19px;
+      // height: 19px;
     }
     .workerPanelHeaderBtnContainer {
       display: flex;
@@ -59,16 +64,30 @@
       }
     }
   }
+  .dashboard_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+
+    img {
+      width: 250px;
+    }
+  }
   .orderRowsContainer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    overflow-x: scroll;
     .orderListContainer {
       padding-top: 40px;
-      max-width: 300px;
+      width: 100%;
       & > div {
         overflow-x: auto;
         max-height: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
       h5 {
         margin-bottom: 25px;
@@ -107,7 +126,7 @@
           .client_name {
             font-size: 12px;
             position: absolute;
-            top: -13px;
+            top: 0px;
             left: 45px;
             background: white;
             padding: 2px;

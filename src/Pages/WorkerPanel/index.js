@@ -73,8 +73,31 @@ export const WorkerPanel = () => {
 
   return (
     <Container className={styles.workPanel_container}>
-      <header>
-        <img src={`${window.location.origin}/images/logo-black-svg (1).png`} />
+      <audio ref={audioRef}>
+        <source
+          src="https://res.cloudinary.com/duhaflump/video/upload/v1604329046/simple_message.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+      <div className={styles.dashboard_header}>
+        <img src={`${window.location.origin}/images/opt_logo.png`} />
+      </div>
+      <div className={styles.orderRowsContainer}>
+        <OrderRow
+          loading={loading}
+          orderList={orderList || []}
+          status="pending"
+          title="New"
+        />
+        <OrderRow
+          loading={loading}
+          orderList={orderList || []}
+          status="preparing"
+          title="Preparing"
+        />
+      </div>
+      <footer>
+        <img src={`${window.location.origin}/images/opt_logo.png`} />
         <div className={styles.workerPanelHeaderBtnContainer}>
           <button
             className={styles.workerPanelHeaderBtnContainerLogoutBtn}
@@ -93,33 +116,7 @@ export const WorkerPanel = () => {
             {appStatus} <div></div>
           </button>
         </div>
-      </header>
-      <audio ref={audioRef}>
-        <source
-          src="https://res.cloudinary.com/duhaflump/video/upload/v1604329046/simple_message.mp3"
-          type="audio/mpeg"
-        />
-      </audio>
-      <div className={styles.orderRowsContainer}>
-        <OrderRow
-          loading={loading}
-          orderList={orderList || []}
-          status="pending"
-          title="New"
-        />
-        <OrderRow
-          loading={loading}
-          orderList={orderList || []}
-          status="preparing"
-          title="Preparing"
-        />
-        <OrderRow
-          loading={loading}
-          orderList={orderList || []}
-          status="completed"
-          title="Completed"
-        />
-      </div>
+      </footer>
     </Container>
   );
 };

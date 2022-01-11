@@ -1,13 +1,15 @@
 .dashboard_container {
   width: 100%;
-  background-color: black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .dashboard_header {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px;
-
     img {
       width: 250px;
     }
@@ -35,7 +37,17 @@
   }
 
   .dashboard_inner_container {
-    color: #fff;
+    color: black;
+    .portalStatusContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        margin-bottom: 1rem;
+        background-color: #fff;
+        color: #075cd5;
+      }
+    }
 
     .order_cards_container {
       margin-top: 50px;
@@ -45,6 +57,8 @@
 
       .card {
         background-color: "#00b894";
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+          rgba(17, 17, 26, 0.05) 0px 8px 32px;
         transition: all 0.3s;
         border: none;
         height: 110px;
@@ -59,6 +73,7 @@
           align-items: center;
           h3 {
             margin-right: 8px;
+            margin-bottom: 0px;
           }
         }
       }
@@ -81,9 +96,9 @@
 
     .footer_btn {
       text-decoration: none;
-      background-color: #4f4f4f;
-      color: rgb(199, 196, 196);
-      padding: 5px;
+      background-color: #075cd5;
+      color: #fff;
+      padding: 8px;
       border-radius: 5px;
       margin-right: 10px;
       transition: all 0.3s;
@@ -93,6 +108,72 @@
         background-color: #383737;
         color: #fff;
       }
+    }
+  }
+}
+.ordersDialog {
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  filter: blur(10px);
+}
+
+.ordersDialogContent {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  .innerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 200px;
+      margin-bottom: 40px;
+    }
+    h3 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: #265079;
+    }
+    span {
+      margin-top: 40px;
+      color: #265079;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .item {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 250px;
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 15px;
+      p {
+        color: #fff;
+        font-size: 19px;
+        margin: 0;
+      }
+    }
+    .itemPending {
+      background-color: #adb5bd;
+    }
+    .itemPreparing {
+      background-color: #d5ba07;
     }
   }
 }

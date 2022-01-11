@@ -1,11 +1,11 @@
 {
-    "name": "mikaels_panda",
-    "short_name": "Mikaels Panda",
-    "theme_color": "#4f4f4f",
-    "background_color": "#ffffff",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/",
+  "name": "Optimyse",
+  "short_name": "Optimyse",
+  "theme_color": "#4f4f4f",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "./images/logo.png",

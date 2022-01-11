@@ -57,7 +57,7 @@ export const UpdateProfile = () => {
     <div className={styles.update_user_container}>
       <Card className={styles.update_user_card}>
         <Card.Header className={styles.update_user_card_header}>
-          <img src={`${window.location.origin}/images/logo-black-svg.png`} />
+          <img src={`${window.location.origin}/images/opt_logo.png`} />
         </Card.Header>
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}

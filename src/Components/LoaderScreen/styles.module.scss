@@ -1,17 +1,15 @@
 .loaderContainer {
   height: 100vh;
-  background-color: black;
-  /* background-image: url("https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Colorful-Circle-Simple-Background-Image-1.jpg"); */
   background-size: cover;
 }
 
 .loaderInnerContainer {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #4f4f4f;
-    backdrop-filter: blur(12px);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4f4f4f;
+  backdrop-filter: blur(12px);
 }
 
 .overlay_container img {

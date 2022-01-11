@@ -30,7 +30,7 @@ export const Login = () => {
     <div className={styles.login_container}>
       <Card className={styles.login_card}>
         <Card.Header className={styles.login_card_header}>
-          <img src={`${window.location.origin}/images/logo-black-svg.png`} />
+          <img src={`${window.location.origin}/images/opt_logo.png`} />
         </Card.Header>
         <Card.Body>
           {error && <Alert variant="danger">{error}</Alert>}
