@@ -14,7 +14,7 @@ import { WorkerPanel } from "./../";
 const EmployeeDashboard = () => {
   const [error, setError] = useState("");
   const [appStatus, setAppStatus] = useState("Offline");
-  const [ordersDialog, setOrdersDialog] = useState(true);
+  const [ordersDialog, setOrdersDialog] = useState(false);
   const [clickedItem, setClickedItem] = useState("");
   const [itemsList, setItemList] = useState([]);
   const { userObject, logout } = useAuth();
