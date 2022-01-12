@@ -14,6 +14,7 @@ import { WorkerPanel } from "./../";
 const EmployeeDashboard = () => {
   const [error, setError] = useState("");
   const [appStatus, setAppStatus] = useState("Offline");
+  const [todayMenu, setTodayMenu] = useState("");
   const [ordersDialog, setOrdersDialog] = useState(false);
   const [clickedItem, setClickedItem] = useState("");
   const [itemsList, setItemList] = useState([]);
@@ -39,6 +40,7 @@ const EmployeeDashboard = () => {
         .doc("mikaels_panda")
         .onSnapshot(function (doc) {
           setAppStatus(doc.data().status);
+          setTodayMenu(doc.data()?.todayMenu);
         });
     } catch (err) {}
   };
@@ -168,6 +170,18 @@ const EmployeeDashboard = () => {
         <div className={styles.dashboard_header}>
           <img src={`${window.location.origin}/images/opt_logo.png`} />
         </div>
+        <h4>
+          {`Today's Menu 🍔: `}
+          {todayMenu ? (
+            todayMenu
+          ) : (
+            <img
+              width="75px"
+              src={`${window.location.origin}/images/waiting_img.png`}
+            />
+          )}
+        </h4>
+
         <Container className={styles.dashboard_inner_container}>
           <div className={styles.mainContainer}>
             <div className={styles.portalStatusContainer}>
@@ -181,9 +195,11 @@ const EmployeeDashboard = () => {
                   }
                 />
               </p>
-              <Button onClick={() => setOrdersDialog(true)}>
-                Orders {orders.length}
-              </Button>
+              <>
+                <Button onClick={() => setOrdersDialog(true)}>
+                  Orders {orders.length}
+                </Button>
+              </>
             </div>
             <h3>
               Hi 👋{" "}
