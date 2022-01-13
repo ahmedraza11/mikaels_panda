@@ -94,10 +94,10 @@ export const WorkerPanel = () => {
   return (
     <Container className={styles.workPanel_container}>
       <audio ref={audioRef}>
-        {/* <source
+        <source
           src="https://res.cloudinary.com/duhaflump/video/upload/v1604329046/simple_message.mp3"
           type="audio/mpeg"
-        /> */}
+        />
       </audio>
       <div className={styles.dashboard_header}>
         <img src={`${window.location.origin}/images/opt_logo.png`} />
