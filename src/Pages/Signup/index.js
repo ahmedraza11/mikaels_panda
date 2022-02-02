@@ -19,8 +19,12 @@ export const Signup = () => {
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-    if (emailRef.current.value.split("@")[1] !== "mikaels.com") {
-      return setError("Only Mikaels folks are welcome: 😊");
+    if (
+      !["mikaels.com", "optimyse.com"].includes(
+        emailRef.current.value.split("@")[1]
+      )
+    ) {
+      return setError("Only Optimyse folks are welcome: 😊");
     }
     try {
       setError("");
